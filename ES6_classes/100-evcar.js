@@ -1,26 +1,13 @@
-export default class Car {
-  constructor(brand, motor, color) {
-    // Create objs
-    this._brand = brand;
-    this._motor = motor;
-    this._color = color;
-  }
+import Car from './10-car';
 
-  // Methods
+export default class EVCar extends Car {
+  constructor(brand, motor, color, range) {
+    super(brand, motor, color);
+    this._range = range;
+  }
 
   cloneCar() {
-    const NewObj = this.constructor[Symbol.species] || this.constructor;
-    const clone = new NewObj();
-    return clone;
+    return new (
+      Object.getPrototypeOf(this.constructor))(this._brand, this._motor, this._color, this._range);
   }
-
-  // Setters
-
-  // Getters
 }
-/* class TestCar extends Car {};
-const tc1 = new TestCar("Nissan", "Turbo", "Pink");
-const tc2 = tc1.cloneCar();
-console.log(tc1 instanceof TestCar);
-console.log(tc2 instanceof TestCar);
-console.log(tc1 == tc2); */
